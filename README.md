@@ -1,6 +1,6 @@
 # GLSL Shader
 
-executed on GPU
+[Live example](https://roomle.github.io/dev-talk-shader-webgl2/dist/client/)
 
 ## Rendering pipeline
 
