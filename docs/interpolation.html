@@ -1,0 +1,75 @@
+<html>
+<head>
+    <meta charset='UTF-8'>
+    <title>processing p5.js example</title>
+    <style>
+        html,body { margin: 0; overflow: hidden; background-color: dimgray; }
+    </style>
+</head>
+
+<body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.6.0/p5.js"></script>
+<script>
+let testTexture;
+
+function preload() {
+    testTexture = loadImage("https://raw.githubusercontent.com/Rabbid76/graphics-snippets/master/resource/texture/512x512_Texel_Density_Texture_1.png");
+}
+
+function setup() {
+    createCanvas(420, 420);
+    testTexture.resize(300, 300);
+}
+
+function draw() {
+    background(255);
+
+    translate(60, 60);
+    tint(255, 127);
+    image(testTexture, 0, 0);
+    drawVertices(true);
+
+    noStroke();
+    fill(0, 0, 255)
+    circle(150, 225, 10);
+    textStyle(BOLD);
+    textSize(20);
+    textAlign(LEFT, TOP);
+    text('(0.5, 0.25)', 155, 230);
+}
+
+function drawVertices(labels) {
+    noFill();
+    stroke(0, 0, 127);
+    strokeWeight(3);
+    const vertices = [
+        [0, 300],
+        [300, 300],
+        [300, 0]
+    ];
+    beginShape();
+    for (let i=0; i < vertices.length; ++i) {
+        vertex(...vertices[i]);
+    }
+    endShape(CLOSE);
+    
+    if (labels) {
+        fill(0, 0, 127);
+        noStroke();
+        for (let i=0; i < vertices.length; ++i) {
+            circle(...vertices[i], 10);
+        }
+        textStyle(BOLD);
+        textSize(20);
+        textAlign(RIGHT, TOP);
+        text('(0, 0)', -5, 305);
+        textAlign(LEFT, TOP);
+        text('(1, 0)', 305, 305);
+        textAlign(LEFT, BOTTOM);
+        text('(1, 1)', 305, -5);
+    }
+}
+</script>
+</body>
+
+</html>

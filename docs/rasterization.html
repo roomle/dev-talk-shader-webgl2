@@ -1,0 +1,116 @@
+<html>
+<head>
+    <meta charset='UTF-8'>
+    <title>processing p5.js example</title>
+    <style>
+        html,body { margin: 0; overflow: hidden; background-color: dimgray; }
+    </style>
+</head>
+
+<body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.6.0/p5.js"></script>
+<script>
+let sel;
+
+function setup() {
+    createCanvas(920, 300);
+}
+
+function draw() {
+    background(255);
+
+    textSize(20);
+    textAlign(CENTER, CENTER);
+    text('Vertex Processing', 140, 40);
+    text('Rasterization', 460, 40);
+    text('Fragment Processing', 780, 40);
+
+    translate(40, 60);
+    drawVertices(true);
+
+    translate(220, 60);
+    drawArrow();
+
+    translate(100, -60);
+    drawFragments(false);
+    drawVertices(false);
+
+    translate(220, 60);
+    drawArrow(true);
+
+    translate(100, -60);
+    drawFragments(true);
+}
+
+function drawVertices(labels) {
+    noFill();
+    stroke(0, 0, 127);
+    strokeWeight(3);
+    const vertices = [
+        [0, 200],
+        [200, 200],
+        [200, 0]
+    ];
+    beginShape();
+    for (let i=0; i < vertices.length; ++i) {
+        vertex(...vertices[i]);
+    }
+    endShape(CLOSE);
+    
+    if (labels) {
+        fill(0, 0, 127);
+        noStroke();
+        for (let i=0; i < vertices.length; ++i) {
+            circle(...vertices[i], 10);
+        }
+        textSize(20);
+        textAlign(RIGHT, TOP);
+        text('1', -5, 205);
+        textAlign(LEFT, TOP);
+        text('2', 205, 205);
+        textAlign(LEFT, BOTTOM);
+        text('3', 205, -5);
+    }
+}
+
+function drawFragments(enumerate) {
+    for (let i=0; i<10; ++i) {
+        for (let j=0; j<=9-i; ++j) {
+            stroke(64);
+            strokeWeight(1);
+            fill(255, 127, 0);
+            rect((i+j)*20, (9-i)*20, 20, 20);
+        }
+    }
+    if (enumerate) {
+        noStroke();
+        fill(0);
+        textSize(10);
+        textAlign(CENTER, CENTER);
+        let n=0;
+        for (let i=0; i<10; ++i) {
+            for (let j=0; j<=9-i; ++j) {
+                text(`${++n}`, (i+j)*20+10, (9-i)*20+10);
+            }
+        }
+     }
+}
+
+function drawArrow() {
+    stroke(0);
+    strokeWeight(1);
+    fill(127);
+    beginShape();
+    vertex(0, 20);
+    vertex(0, 60);
+    vertex(40, 60);
+    vertex(40, 80);
+    vertex(80, 40);
+    vertex(40, 0);
+    vertex(40, 20);
+    endShape(CLOSE);
+}
+</script>
+</body>
+
+</html>
