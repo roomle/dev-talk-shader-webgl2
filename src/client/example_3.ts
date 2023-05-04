@@ -7,6 +7,7 @@
     in vec3 attributePos;
     in vec3 attributeNormal;
     in vec2 attributeUV;
+    out vec3 position;
     out vec3 normal;
     out vec2 uv;
     uniform mat4 projection;
@@ -14,25 +15,30 @@
     uniform mat4 model;
     void main()
     {
-        normal = mat3(view * model) * attributeNormal;
+        vec4 viewPos = view * model * vec4(attributePos, 1.0);
+        position = viewPos.xyz;
+        normal = inverse(transpose(mat3(view * model))) * attributeNormal;
         uv = attributeUV;
-        gl_Position = projection * view * model * vec4(attributePos, 1.0);
+        gl_Position = projection * viewPos;
     }
     `
 
     const fragmentShaderSource = 
     `#version 300 es
     precision mediump float;
+    in vec3 position;
     in vec3 normal;
     in vec2 uv;
     uniform sampler2D tex;
     out vec4 fragColor;
     void main()
     {
-        vec3 dirToLight = normalize(vec3(1.0, 1.0, 1.0));
-        float diffuse = max(0.0, dot(dirToLight, normalize(normal)));
         vec4 color = texture(tex, uv);
-        fragColor = vec4(color.rgb * (diffuse * 0.8 + 0.2), color.a);
+        vec3 dirToLight = normalize(vec3(1.0, 1.0, 1.0));
+        // bidirectional reflectance distribution function: Blinn-Phong
+        float diffuse = max(0.0, dot(dirToLight, normalize(normal)));
+        float specular = pow(max(0.0, dot(normalize(normal), normalize(-position + dirToLight))), 100.0);
+        fragColor = vec4(color.rgb * (0.2 + diffuse * 0.8 + specular * 1.0), color.a);
     }
     `
 
