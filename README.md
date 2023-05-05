@@ -68,4 +68,5 @@ The viewing frustum is limited by the near and far plane. The geometry is clippe
 
 [OpenGL Projection Matrix](http://www.songho.ca/opengl/gl_projectionmatrix.html)
 
-[![perspective view frustum](./docs/perspective_view_frustum.gif)](https://rabbid76.github.io/graphics-snippets/example/threejs/three_perspective.html)
+[![perspective view frustum](./docs/perspective_view_frustum.gif)](https://rabbid76.github.io/graphics-snippets/example/threejs/three_perspective.html)  
+[perspective view frustum](https://rabbid76.github.io/graphics-snippets/example/threejs/three_perspective.html)
