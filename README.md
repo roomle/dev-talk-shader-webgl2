@@ -2,6 +2,8 @@
 
 [Live example](https://roomle.github.io/dev-talk-shader-webgl2/dist/client/)
 
+A shader programme is the programmable part of the graphics processor's rendering pipeline.
+
 ## Rendering pipeline
 
 [Rendering Pipeline Overview](https://www.khronos.org/opengl/wiki/Rendering_Pipeline_Overview) ([Early Fragment Test](https://www.khronos.org/opengl/wiki/Early_Fragment_Test)):
@@ -37,6 +39,7 @@ The input of a shader program are the vertices and vertex attributes of a mesh. 
 The purpose of the vertex shader is to calculate the clip space position of the vertex.
 The input of the vertex shader is the vertex attributes of the mesh.
 The output of the vertex shader is the clip space position of the vertex and the programmable outputs that are passed to the next shader stage.
+The clip space position is a [Homogeneous coordinates](https://en.wikipedia.org/wiki/Homogeneous_coordinates) and is set by writing to the built-in output variable [`gl_Position`](https://registry.khronos.org/OpenGL-Refpages/gl4/html/gl_Position.xhtml).
 
 ### Fragment shader
 
